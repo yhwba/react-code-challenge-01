@@ -56,12 +56,11 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: "Nanum Gothic", sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     font-style: normal;
     background-color:${props => props.theme.bgColor};
     color:${props => props.theme.textColor};
-
-
+    line-height: 1.2;
   }
   a {
     text-decoration: none;
