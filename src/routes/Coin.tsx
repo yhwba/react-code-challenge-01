@@ -12,7 +12,7 @@ import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
-
+import { Helmet } from "react-helmet-async";
 
 const Container = styled.div`
    padding: 0 2px;
@@ -24,13 +24,21 @@ const Header = styled.div`
    height:10vh;
    margin: 20px 0;
    display: flex;
-   justify-content: center;
+   /* justify-content: center; */
    align-items: center;
+   
    `;
+const BackBtn = styled.div`
+   i {
+      font-size: 22px;
+   }
+`;
 
 const Title = styled.h1`
    color:${prop => prop.theme.accentColor};
    font-size: 40px;
+   flex-grow: 1;
+   text-align: center;
 `;
 
 const Loader = styled.div`
@@ -161,14 +169,24 @@ function Coin() {
    );
    const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceInfoData>(
       ["tickers", coinId],
-      () => fetchCoinTickers(coinId)
+      () => fetchCoinTickers(coinId), {
+      refetchInterval: 5000
+   }
    );
    const loading = infoLoading || tickersLoading;
 
 
    return (
       <Container>
+         <Helmet>
+            <title>
+               {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+            </title>
+         </Helmet>
          <Header>
+            <BackBtn>
+               <Link to={`/`}><i className="xi-arrow-left" /></Link>
+            </BackBtn>
             <Title>
                {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
             </Title>
@@ -187,8 +205,8 @@ function Coin() {
                      <span>${infoData?.symbol}</span>
                   </OverviewItem>
                   <OverviewItem>
-                     <span>Open Source:</span>
-                     <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                     <span>Price:</span>
+                     <span>{tickersData?.quotes.USD.price.toFixed(3)}</span>
                   </OverviewItem>
                </Overview>
                <Description>{infoData?.description}</Description>

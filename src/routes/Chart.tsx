@@ -18,7 +18,9 @@ interface ChartProps {
 }
 function Chart({ coinId }: ChartProps) {
    const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
-      fetchCoinHistory(coinId)
+      fetchCoinHistory(coinId), {
+      refetchInterval: 10000,
+   }
    );
    return (
       <div>
@@ -26,11 +28,14 @@ function Chart({ coinId }: ChartProps) {
             "Loading chart..."
          ) : (
             <ApexChart
-               type="line"
+               type="candlestick"
                series={[
                   {
                      name: "Price",
-                     data: data?.map((price) => Number(price.close)) as number[],
+                     data: data?.map((price) => ({
+                        x: new Date(price.time_close),
+                        y: [price.open, price.high, price.low, price.close].map(Number),
+                     })) as []
                   },
                ]}
                options={{
@@ -46,10 +51,10 @@ function Chart({ coinId }: ChartProps) {
                      background: "transparent",
                   },
                   grid: { show: false },
-                  stroke: {
-                     curve: "smooth",
-                     width: 4,
-                  },
+                  // stroke: {
+                  //    curve: "smooth",
+                  //    width: 4,
+                  // },
                   yaxis: {
                      show: false,
                   },
@@ -57,7 +62,19 @@ function Chart({ coinId }: ChartProps) {
                      axisBorder: { show: false },
                      axisTicks: { show: false },
                      labels: { show: false },
+                     type: "datetime",
+                     categories: data?.map((price) => price.time_close),
                   },
+                  // fill: {
+                  //    type: "gradient",
+                  //    gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
+                  // },
+                  // colors: ["#0fbcf9"],
+                  // tooltip: {
+                  //    y: {
+                  //       formatter: (value) => `$${value.toFixed(2)}`,
+                  //    },
+                  // },
                }}
             />
          )}

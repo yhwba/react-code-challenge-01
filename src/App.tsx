@@ -2,7 +2,7 @@ import React from 'react';
 import Router from './Router';
 import { createGlobalStyle } from 'styled-components';
 import { ReactQueryDevtools } from "react-query/devtools";
-
+import { HelmetProvider } from "react-helmet-async"
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
   html, body, div, span, applet, object, iframe,
@@ -72,9 +72,12 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <HelmetProvider >
+        <GlobalStyle />
+        <Router />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </HelmetProvider>
+
     </>
   );
 }
