@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
    Switch,
    Route,
@@ -206,7 +205,7 @@ function Coin() {
                   </OverviewItem>
                   <OverviewItem>
                      <span>Price:</span>
-                     <span>{tickersData?.quotes.USD.price.toFixed(3)}</span>
+                     <span>{tickersData?.quotes?.USD.price.toFixed(3)}</span>
                   </OverviewItem>
                </Overview>
                <Description>{infoData?.description}</Description>
