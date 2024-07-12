@@ -15,3 +15,11 @@ export function fetchCoinTickers(coinId: string) {
     response.json()
   );
 }
+
+const NICO_URL = 'https://ohlcv-api.nomadcoders.workers.dev?coinId='
+
+export function fetchCoinHistory(coinId: string) {
+  return fetch(
+    `${NICO_URL}${coinId}`
+  ).then((response) => response.json());
+}
