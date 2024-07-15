@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-code-challenge-01/static/js/main.c4ab8a37.js",
+    "main.js": "/react-code-challenge-01/static/js/main.daa5da43.js",
     "index.html": "/react-code-challenge-01/index.html",
-    "main.c4ab8a37.js.map": "/react-code-challenge-01/static/js/main.c4ab8a37.js.map"
+    "main.daa5da43.js.map": "/react-code-challenge-01/static/js/main.daa5da43.js.map"
   },
   "entrypoints": [
-    "static/js/main.c4ab8a37.js"
+    "static/js/main.daa5da43.js"
   ]
 }
