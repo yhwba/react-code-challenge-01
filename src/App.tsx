@@ -1,8 +1,13 @@
 import React from 'react';
 import Router from './Router';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+
 import { ReactQueryDevtools } from "react-query/devtools";
 import { HelmetProvider } from "react-helmet-async"
+
+import { darkTheme, lightTheme } from "./theme";
+import { useState } from "react";
+
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
   html, body, div, span, applet, object, iframe,
@@ -67,15 +72,27 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color:inherit
   }
+  .toggleBtn{
+    font-size: 30px;
+    text-align: right;
+    width: 100%;
+    margin-top: 10px;
+    padding: 20px;
+  }
 `
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark((current) => !current);
   return (
     <>
       <HelmetProvider >
-        <GlobalStyle />
-        <Router />
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+          <i className={isDark ? 'xi-toggle-on toggleBtn' : 'xi-toggle-off toggleBtn'} onClick={toggleDark} />
+          <GlobalStyle />
+          <Router />
+          <ReactQueryDevtools initialIsOpen={true} />
+        </ThemeProvider>
       </HelmetProvider>
 
     </>

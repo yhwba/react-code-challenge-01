@@ -122,7 +122,7 @@ interface IInfoData {
 
 }
 
-interface IPriceInfoData {
+export interface IPriceInfoData {
    id: string;
    name: string;
    symbol: string;
@@ -169,7 +169,7 @@ function Coin() {
    const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceInfoData>(
       ["tickers", coinId],
       () => fetchCoinTickers(coinId), {
-      refetchInterval: 5000
+      // refetchInterval: 5000
    }
    );
    const loading = infoLoading || tickersLoading;
@@ -229,7 +229,7 @@ function Coin() {
                </Tabs>
                <Switch>
                   <Route path={`/:coinId/price`}>
-                     <Price />
+                     <Price coinId={coinId} infoData={tickersData} />
                   </Route>
                   <Route path={`/:coinId/chart`}>
                      <Chart coinId={coinId} />
