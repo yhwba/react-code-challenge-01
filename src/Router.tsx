@@ -1,15 +1,18 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Coin from "./routes/Coin";
 import Coins from "./routes/Coins";
+
+// const url = "/react-code-challenge-01"
 function Router() {
-   return <BrowserRouter>
+   return <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
-         <Route path="/:coinId">
-            <Coin />
-         </Route>
-         <Route path="/">
+         <Route exact path={`/`}>
             <Coins />
          </Route>
+         <Route path={"/:coinId"}>
+            <Coin />
+         </Route>
+
       </Switch>
    </BrowserRouter>
 }
