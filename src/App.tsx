@@ -7,6 +7,8 @@ import { HelmetProvider } from "react-helmet-async"
 
 import { darkTheme, lightTheme } from "./theme";
 import { useState } from "react";
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from './atoms';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
@@ -82,13 +84,11 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  const toggleDark = () => setIsDark((current) => !current);
+  const isDark = useRecoilValue(isDarkAtom)
   return (
     <>
       <HelmetProvider >
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-          <i className={isDark ? 'xi-toggle-on toggleBtn' : 'xi-toggle-off toggleBtn'} onClick={toggleDark} />
           <GlobalStyle />
           <Router />
           <ReactQueryDevtools initialIsOpen={true} />

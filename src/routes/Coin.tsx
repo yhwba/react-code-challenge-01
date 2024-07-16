@@ -23,7 +23,7 @@ const Header = styled.div`
    height:10vh;
    margin: 20px 0;
    display: flex;
-   /* justify-content: center; */
+   justify-content: center;
    align-items: center;
    
    `;
@@ -156,10 +156,12 @@ export interface IPriceInfoData {
       }
    }
 }
+interface ICoinProps {
+}
 
 
 
-function Coin() {
+function Coin({ }: ICoinProps) {
    const { coinId } = useParams<RouteParams>();
    const { state } = useLocation<RouteState>()
    const priceMatch = useRouteMatch("/:coinId/price");
@@ -233,7 +235,7 @@ function Coin() {
                   <Route path={`/:coinId/price`}>
                      <Price coinId={coinId} infoData={tickersData} />
                   </Route>
-                  <Route path={`/:coinId/chart`}>
+                  <Route path={`/:coinId/chart`} >
                      <Chart coinId={coinId} />
                   </Route>
                </Switch>
